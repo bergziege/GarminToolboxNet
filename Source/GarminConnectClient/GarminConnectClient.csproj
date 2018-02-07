@@ -65,7 +65,6 @@
     <Compile Include="Data\Timestamp.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="GarminConnectClient.nuspec" />
     <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
