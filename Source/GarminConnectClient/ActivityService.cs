@@ -3,35 +3,35 @@ using System.Net;
 
 namespace GarminConnectClient
 {
-	public class ActivityService
-	{
-		private readonly Session session;
+    public class ActivityService : IActivityService
+    {
+		private readonly ISessionService session;
 
-		public ActivityService(Session session)
+		public ActivityService(ISessionService session)
 		{
 			this.session = session;
 		}
-
-		public void Export(int activityId, string fileName, ExportFileType fileType)
+        
+		public void Export(string activityId, string fileName, ExportFileType fileType)
 		{
-			Export(activityId, fileName, fileType, true, false);
-		}
-
-		public void Export(int activityId, string fileName, ExportFileType fileType, bool detailedHistory, bool original)
-		{
-			string url = BuildExportUrl(fileType, activityId, detailedHistory, original);
-			var request = HttpUtils.CreateRequest(url, session.Cookies);
+			string url = BuildExportUrl(fileType, activityId);
+			var request = HttpUtils.CreateRequest(url, session.Session.Cookies);
 			var response = (HttpWebResponse)request.GetResponse();
 			response.SaveResponseToFile(fileName);
 		}
 
-		private static string BuildExportUrl(ExportFileType fileType, int activityId, bool detailedHistory, bool original)
+		private static string BuildExportUrl(ExportFileType fileType, string activityId)
 		{
-			var queryString = HttpUtils.CreateQueryString();
-			queryString.Add("full", detailedHistory.ToString().ToLower());
-			queryString.Add("original", original.ToString().ToLower());
-			return String.Format("http://connect.garmin.com/proxy/activity-service-1.2/{0}/activity/{1}?{2}",
-				fileType.ToString().ToLower(), activityId, queryString);
+		    switch (fileType)
+		    {
+		        case ExportFileType.Gpx:
+		            return String.Format("https://connect.garmin.com/modern/proxy/download-service/export/{0}/activity/{1}",
+		                fileType.ToString().ToLower(), activityId);
+		        case ExportFileType.Original:
+                    return String.Format("https://connect.garmin.com/modern/proxy/download-service/files/activity/{0}",activityId);
+		        default:
+		            throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null);
+		    }
 		}
 	}
 }

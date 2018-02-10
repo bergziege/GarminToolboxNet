@@ -6,8 +6,8 @@ using System.Text.RegularExpressions;
 
 namespace GarminConnectClient
 {
-	public class SessionService
-	{
+    public class SessionService : ISessionService
+    {
 		private const string ClientId = "GarminConnect";
 
 		public Session Session { get; private set; }

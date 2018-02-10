@@ -19,7 +19,7 @@ namespace GarminConnectClient.Data
 	public class ActivityTypeContainer
 	{
 		[DataMember(Name = "key")]
-		public ActivityType Key { get; set; }
+		public string Key { get; set; }
 	}
 
 	public enum ActivityType

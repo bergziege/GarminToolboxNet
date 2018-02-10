@@ -13,19 +13,19 @@ namespace GarminConnectClient.Data
 	public class Activity
 	{
 		[DataMember(Name = "activityId")]
-		public int ActivityId { get; set; }
+		public string ActivityId { get; set; }
 
 		[DataMember(Name = "activityName")]
 		public string ActivityName { get; set; }
 
-		[DataMember(Name = "activityDescription")]
-		public string ActivityDescription { get; set; }
+		//[DataMember(Name = "activityDescription")]
+		//public string ActivityDescription { get; set; }
 
 		[DataMember(Name = "activityType")]
 		public ActivityTypeContainer ActivityType { get; set; }
 
-		[DataMember(Name = "eventType")]
-		public EventTypeContainer EventType { get; set; }
+		//[DataMember(Name = "eventType")]
+		//public EventTypeContainer EventType { get; set; }
 
 		[DataMember(Name = "activitySummary")]
 		public ActivitySummary ActivitySummary { get; set; }

@@ -3,17 +3,19 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
+using System.Threading;
+using System.Threading.Tasks;
 using GarminConnectClient.Data;
 
 namespace GarminConnectClient
 {
-	public class ActivitySearchService
-	{
-		private readonly Session session;
+    public class ActivitySearchService : IActivitySearchService
+    {
+		private readonly ISessionService _sessionService;
 
-		public ActivitySearchService(Session session)
+		public ActivitySearchService(ISessionService sessionService)
 		{
-			this.session = session;
+			this._sessionService = sessionService;
 		}
 
 		public ActivitySearchResultsContainer FindActivities()
@@ -25,32 +27,40 @@ namespace GarminConnectClient
 		{
 			string url = BuildSearchUrl(filters);
 			Debug.WriteLine("FindActivities: {0}", (object)url);
-			var request = HttpUtils.CreateRequest(url, session.Cookies);
+			var request = HttpUtils.CreateRequest(url, _sessionService.Session.Cookies);
 			var response = (HttpWebResponse)request.GetResponse();
 			string responseText = response.GetResponseAsString();
 			return ActivitySearchResultsContainer.ParseJson(responseText);
 		}
 
 
-		public List<Activity> FindAllActivities()
+		public List<Activity> FindAllActivities(out IList<string> errors)
 		{
-			return FindAllActivities(new ActivitySearchFilters());
+			return FindAllActivities(new ActivitySearchFilters(), out errors);
 		}
 
-		public List<Activity> FindAllActivities(ActivitySearchFilters filters)
+		public List<Activity> FindAllActivities(ActivitySearchFilters filters, out IList<string> errors)
 		{
-			filters.Page = 0;
-
+            errors = new List<string>();
 			var activities = new List<Activity>();
-			ActivitySearchResultsContainer results;
+			ActivitySearchResultsContainer results = null;
 			do
 			{
-				filters.Page++;
+			    //Thread.Sleep(TimeSpan.FromMilliseconds(250));
+                filters.Page++;
 				Debug.WriteLine("Searching page {0}", filters.Page);
-				results = FindActivities(filters);
-				activities.AddRange(results.Results.Activities.Select(a => a.Activity));
+                try
+                {
+                    results = FindActivities(filters);
+                    activities.AddRange(results.Results.Activities.Select(a => a.Activity));
+                }
+                catch (Exception ex)
+                {
+                    results.Results.CurrentPage++;
+                    errors.Add($"Page:{filters.Page}, PageSize:{filters.ActivitiesPerPage}");
+                }
 				Debug.WriteLine("Found page {0} or {1}", results.Results.CurrentPage, results.Results.TotalPages);
-			} while (results.Results.CurrentPage < results.Results.TotalPages);
+			} while (results.Results.CurrentPage < results.Results.TotalPages && results.Results.CurrentPage < filters.MaxPages);
 
 			return activities;
 		}

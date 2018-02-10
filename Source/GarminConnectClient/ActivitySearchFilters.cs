@@ -19,6 +19,8 @@ namespace GarminConnectClient
 		public DateTime? FromDate;// beginTimestamp
 		public DateTime? ToDate;// endTimestamp
 
+	    public int MaxPages;
+
 		public string ToQueryString()
 		{
 			var parameters = HttpUtils.CreateQueryString();

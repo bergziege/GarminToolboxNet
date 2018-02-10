@@ -1,6 +1,8 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27130.2027
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminConnectClient", "Source\GarminConnectClient\GarminConnectClient.csproj", "{1F97ED75-8F5A-40E5-9D1A-EFA78558A84A}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminConnectClient.Test", "Source\GarminConnectClient.Test\GarminConnectClient.Test.csproj", "{89C13626-5FF9-413A-83E7-943C89056DFF}"
@@ -13,6 +15,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{3D4E0B
 		.nuget\NuGet.exe = .nuget\NuGet.exe
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminToolbox.Core", "GarminToolbox.Core\GarminToolbox.Core.csproj", "{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminToolbox.Core.Test", "GarminToolbox.Core.Test\GarminToolbox.Core.Test.csproj", "{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GarminToolbox.Console", "GarminToolbox.Console\GarminToolbox.Console.csproj", "{13F3AAA0-F68B-4260-A659-10E79976E908}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,8 +62,47 @@ Global
 		{7F61EC1C-16FE-4A0B-94D4-A570CFC5AD04}.Release|Mixed Platforms.Build.0 = Release|x86
 		{7F61EC1C-16FE-4A0B-94D4-A570CFC5AD04}.Release|x86.ActiveCfg = Release|x86
 		{7F61EC1C-16FE-4A0B-94D4-A570CFC5AD04}.Release|x86.Build.0 = Release|x86
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Debug|x86.Build.0 = Debug|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|x86.ActiveCfg = Release|Any CPU
+		{DCD7AE32-FF4A-4461-9E46-3D0AB23E31E1}.Release|x86.Build.0 = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Debug|x86.Build.0 = Debug|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|x86.ActiveCfg = Release|Any CPU
+		{9B9F04D7-4A2E-47BF-8E8A-AC3AD7B6725F}.Release|x86.Build.0 = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|Mixed Platforms.ActiveCfg = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|Mixed Platforms.Build.0 = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Debug|x86.Build.0 = Debug|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|Any CPU.Build.0 = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|Mixed Platforms.ActiveCfg = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|Mixed Platforms.Build.0 = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|x86.ActiveCfg = Release|Any CPU
+		{13F3AAA0-F68B-4260-A659-10E79976E908}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5041C94F-39FD-4F49-A8BB-0F6A9764F46C}
 	EndGlobalSection
 EndGlobal
