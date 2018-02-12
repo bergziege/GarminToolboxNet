@@ -56,7 +56,7 @@ namespace GarminToolbox.Core.Service.Impl
         {
             IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutOriginalFile();
             
-            string downloadDirectory = @"C:\Temp\garmin-connect-net-originals\";
+            string downloadDirectory = @"P:\GarminToolboxNet\";
             foreach (ActivityMetadata metadata in activitiesWithoutOriginalFile)
             {
                 try
@@ -77,7 +77,7 @@ namespace GarminToolbox.Core.Service.Impl
         {
             IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutGpx();
             
-            string downloadDirectory = @"C:\Temp\garmin-connect-net-originals\";
+            string downloadDirectory = @"P:\GarminToolboxNet\";
             foreach (ActivityMetadata metadata in activitiesWithoutOriginalFile)
             {
                 try
@@ -101,7 +101,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void CleanFiles()
         {
-            string downloadDirectory = @"C:\Temp\garmin-connect-net-originals\";
+            string downloadDirectory = @"P:\GarminToolboxNet\";
             IList<ActivityMetadata> metadatas = _activityMetadataDao.GetAll();
             foreach (ActivityMetadata metadata in metadatas.Where(x=>x.HasGpx))
             {
