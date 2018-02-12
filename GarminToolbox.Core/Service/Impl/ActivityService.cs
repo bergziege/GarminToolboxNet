@@ -106,11 +106,19 @@ namespace GarminToolbox.Core.Service.Impl
             foreach (ActivityMetadata metadata in metadatas.Where(x=>x.HasGpx))
             {
                 FileInfo file = new FileInfo(downloadDirectory + metadata.ActivityId + ".gpx");
-                if (file.Length == 0)
+                if (!file.Exists)
                 {
-                    file.Delete();
                     metadata.UpdateHasGpx(false);
                     _activityMetadataDao.Update(metadata);
+                }
+                else
+                {
+                    if (file.Length == 0)
+                    {
+                        file.Delete();
+                        metadata.UpdateHasGpx(false);
+                        _activityMetadataDao.Update(metadata);
+                    }
                 }
             }
         }
