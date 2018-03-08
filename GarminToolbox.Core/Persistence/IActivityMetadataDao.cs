@@ -12,5 +12,6 @@ namespace GarminToolbox.Core.Persistence
         IList<ActivityMetadata> FindAllWithoutOriginalFile();
         void Update(ActivityMetadata activityMetadata);
         IList<ActivityMetadata> FindAllWithoutGpx();
+        IList<ActivityMetadata> FindAllWithoutGpxAndNotFailed();
     }
 }

@@ -28,7 +28,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindAllActivities(new ActivitySearchFilters { Page = 0, MaxPages = 20, ActivitiesPerPage = 1 }, out IList<string> errors);
+            List<Activity> activities = _activitySearchService.FindAllActivities(new ActivitySearchFilters { Page = 0, MaxPages = 40, ActivitiesPerPage = 1 }, out IList<string> errors);
 
             Console.WriteLine(string.Join(Environment.NewLine, errors));
 
@@ -75,7 +75,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void SyncGpx()
         {
-            IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutGpx();
+            IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutGpxAndNotFailed();
             
             string downloadDirectory = @"P:\GarminToolboxNet\";
             foreach (ActivityMetadata metadata in activitiesWithoutOriginalFile)
@@ -117,6 +117,7 @@ namespace GarminToolbox.Core.Service.Impl
                     {
                         file.Delete();
                         metadata.UpdateHasGpx(false);
+                        metadata.UpdateGpxDownloadFailed(true);
                         _activityMetadataDao.Update(metadata);
                     }
                 }

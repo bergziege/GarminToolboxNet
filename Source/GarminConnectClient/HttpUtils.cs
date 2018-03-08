@@ -73,7 +73,7 @@ namespace GarminConnectClient
 			using (Stream responseStream = response.GetResponseStream())
 			using (FileStream fileStream = File.Create(targetFilePath))
 			{
-				if (responseStream != null)
+				if (responseStream != null && response.ContentLength > 0)
 					responseStream.CopyTo(fileStream);
 			}
 		}

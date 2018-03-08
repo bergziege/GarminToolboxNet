@@ -45,5 +45,10 @@ namespace GarminToolbox.Core.Persistence.Impl
         {
             return _connection.Select<ActivityMetadata>(x => !x.HasGpx).ToList();
         }
+
+        public IList<ActivityMetadata> FindAllWithoutGpxAndNotFailed()
+        {
+            return _connection.Select<ActivityMetadata>(x => !x.HasGpx && !x.GpxDownloadFailed).ToList();
+        }
     }
 }

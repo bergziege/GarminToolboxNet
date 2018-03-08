@@ -18,6 +18,7 @@ namespace GarminToolbox.Core.Domain
         public int Id { get; set; }
         public bool HasOriginal { get; set; }
         public bool HasGpx { get; set; }
+        public bool GpxDownloadFailed { get; set; }
 
         /// <summary>
         /// For Dapper
@@ -48,6 +49,11 @@ namespace GarminToolbox.Core.Domain
         public void UpdateHasGpx(bool hasGpx = true)
         {
             HasGpx = hasGpx;
+        }
+
+        public void UpdateGpxDownloadFailed(bool gpxDownloadFailed)
+        {
+            GpxDownloadFailed = gpxDownloadFailed;
         }
     }
 }
