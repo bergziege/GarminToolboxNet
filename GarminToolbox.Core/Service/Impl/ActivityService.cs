@@ -28,7 +28,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindAllActivities(new ActivitySearchFilters { Page = 0, MaxPages = 40, ActivitiesPerPage = 1 }, out IList<string> errors);
+            List<Activity> activities = _activitySearchService.FindAllActivities(new ActivitySearchFilters { Page = 0, MaxPages = 50, ActivitiesPerPage = 1 }, out IList<string> errors);
 
             Console.WriteLine(string.Join(Environment.NewLine, errors));
 

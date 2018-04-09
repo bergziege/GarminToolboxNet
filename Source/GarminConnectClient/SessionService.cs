@@ -39,7 +39,7 @@ namespace GarminConnectClient
 		private static string GetLogInUrl()
 		{
 			var qs = HttpUtils.CreateQueryString();
-			qs.Add("service", "https://connect.garmin.com/post-auth/login");
+			qs.Add("service", "https://connect.garmin.com/modern");
 			qs.Add("clientId", ClientId);
 			return "https://sso.garmin.com/sso/login?" + qs;
 		}
