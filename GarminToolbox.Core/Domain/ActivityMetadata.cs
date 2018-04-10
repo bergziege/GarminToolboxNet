@@ -8,7 +8,7 @@ namespace GarminToolbox.Core.Domain
         public string ActivityId { get; set; }
         public string Name { get; set; }
         public string ActivityType { get; set; }
-        public DateTime Start { get; set; }
+        public DateTime? Start { get; set; }
         public DateTime? End { get; set; }
         public double? Distance { get; set; }
         public double? BeginLatitude { get; set; }
@@ -27,7 +27,7 @@ namespace GarminToolbox.Core.Domain
         {
         }
 
-        public ActivityMetadata(string activityId, string name, string activityType, DateTime start, DateTime? end, double? distance, double? beginLatitude, double? endLatitude, double? beginLongitude, double? endLongitude)
+        public ActivityMetadata(string activityId, string name, string activityType, DateTime? start, DateTime? end, double? distance, double? beginLatitude, double? endLatitude, double? beginLongitude, double? endLongitude)
         {
             ActivityId = activityId;
             Name = name;

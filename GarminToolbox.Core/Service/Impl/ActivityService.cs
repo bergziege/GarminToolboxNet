@@ -38,13 +38,13 @@ namespace GarminToolbox.Core.Service.Impl
                     activity.ActivityId,
                     activity.ActivityName,
                     activity.ActivityType.Key.ToString(),
-                    activity.ActivitySummary.BeginTimestamp.Value,
-                    activity.ActivitySummary.EndTimestamp?.Value,
-                    activity.ActivitySummary.SumDistance?.Value,
-                    activity.ActivitySummary.BeginLatitude?.Value,
-                    activity.ActivitySummary.EndLatitude?.Value,
-                    activity.ActivitySummary.BeginLongitude?.Value,
-                    activity.ActivitySummary.EndLongitude?.Value);
+                    activity.ActivitySummary?.BeginTimestamp?.Value,
+                    activity.ActivitySummary?.EndTimestamp?.Value,
+                    activity.ActivitySummary?.SumDistance?.Value,
+                    activity.ActivitySummary?.BeginLatitude?.Value,
+                    activity.ActivitySummary?.EndLatitude?.Value,
+                    activity.ActivitySummary?.BeginLongitude?.Value,
+                    activity.ActivitySummary?.EndLongitude?.Value);
                 if (!_activityMetadataDao.Exists(metadata.ActivityId))
                 {
                     _activityMetadataDao.Insert(metadata);
