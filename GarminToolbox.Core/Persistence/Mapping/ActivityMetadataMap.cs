@@ -22,6 +22,8 @@ namespace GarminToolbox.Core.Persistence.Mapping
             Map(x => x.HasOriginal).ToColumn("has_original");
             Map(x => x.HasGpx).ToColumn("has_gpx");
             Map(x => x.GpxDownloadFailed).ToColumn("gpx_download_failed");
+            Map(x => x.Duration).ToColumn("duration");
+            Map(x => x.MovingDuration).ToColumn("movingDuration");
         }
     }
 }

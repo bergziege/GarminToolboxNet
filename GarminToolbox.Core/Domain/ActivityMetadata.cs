@@ -19,6 +19,8 @@ namespace GarminToolbox.Core.Domain
         public bool HasOriginal { get; set; }
         public bool HasGpx { get; set; }
         public bool GpxDownloadFailed { get; set; }
+        public double? Duration { get; set; }
+        public double? MovingDuration { get; set; }
 
         /// <summary>
         /// For Dapper
@@ -27,7 +29,7 @@ namespace GarminToolbox.Core.Domain
         {
         }
 
-        public ActivityMetadata(string activityId, string name, string activityType, DateTime? start, DateTime? end, double? distance, double? beginLatitude, double? endLatitude, double? beginLongitude, double? endLongitude)
+        public ActivityMetadata(string activityId, string name, string activityType, DateTime? start, DateTime? end, double? distance, double? beginLatitude, double? endLatitude, double? beginLongitude, double? endLongitude, double? duration, double? movingDuration)
         {
             ActivityId = activityId;
             Name = name;
@@ -39,6 +41,8 @@ namespace GarminToolbox.Core.Domain
             EndLatitude = endLatitude;
             BeginLongitude = beginLongitude;
             EndLongitude = endLongitude;
+            Duration = duration;
+            MovingDuration = movingDuration;
         }
 
         public void UpdateHasOriginal(bool hasOriginal = true)

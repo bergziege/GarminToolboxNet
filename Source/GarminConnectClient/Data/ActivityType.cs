@@ -18,7 +18,7 @@ namespace GarminConnectClient.Data
 	[DataContract]
 	public class ActivityTypeContainer
 	{
-		[DataMember(Name = "key")]
+		[DataMember(Name = "typeKey")]
 		public string Key { get; set; }
 	}
 

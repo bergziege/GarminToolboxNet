@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
@@ -28,9 +29,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindAllActivities(new ActivitySearchFilters { Page = 0, MaxPages = 50, ActivitiesPerPage = 1 }, out IList<string> errors);
-
-            Console.WriteLine(string.Join(Environment.NewLine, errors));
+            List<Activity> activities = _activitySearchService.FindActivities(0,800);
 
             foreach (Activity activity in activities)
             {
@@ -38,16 +37,22 @@ namespace GarminToolbox.Core.Service.Impl
                     activity.ActivityId,
                     activity.ActivityName,
                     activity.ActivityType.Key.ToString(),
-                    activity.ActivitySummary?.BeginTimestamp?.Value,
-                    activity.ActivitySummary?.EndTimestamp?.Value,
-                    activity.ActivitySummary?.SumDistance?.Value,
-                    activity.ActivitySummary?.BeginLatitude?.Value,
-                    activity.ActivitySummary?.EndLatitude?.Value,
-                    activity.ActivitySummary?.BeginLongitude?.Value,
-                    activity.ActivitySummary?.EndLongitude?.Value);
+                    activity.BeginTimestamp,
+                    null,
+                    activity.SumDistance,
+                    activity.BeginLatitude,
+                    activity.EndLatitude,
+                    activity.BeginLongitude,
+                    activity.EndLongitude,
+                    activity.DurationInSeconds,
+                    activity.MovingDurationInSeconds);
                 if (!_activityMetadataDao.Exists(metadata.ActivityId))
                 {
                     _activityMetadataDao.Insert(metadata);
+                }
+                else
+                {
+                    Debug.WriteLine($"Activity {activity.ActivityId} exists.");
                 }
             }
         }

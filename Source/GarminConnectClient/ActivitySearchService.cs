@@ -5,7 +5,9 @@ using System.Linq;
 using System.Net;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Web.UI;
 using GarminConnectClient.Data;
+using Newtonsoft.Json;
 
 namespace GarminConnectClient
 {
@@ -18,63 +20,47 @@ namespace GarminConnectClient
 			this._sessionService = sessionService;
 		}
 
-		public ActivitySearchResultsContainer FindActivities()
+		public List<Activity> FindActivities(int start, int limit)
 		{
-			return FindActivities(new ActivitySearchFilters());
-		}
-
-		public ActivitySearchResultsContainer FindActivities(ActivitySearchFilters filters)
-		{
-			string url = BuildSearchUrl(filters);
+			string url = BuildSearchUrl(start, limit);
 			Debug.WriteLine("FindActivities: {0}", (object)url);
 			var request = HttpUtils.CreateRequest(url, _sessionService.Session.Cookies);
 			var response = (HttpWebResponse)request.GetResponse();
 			string responseText = response.GetResponseAsString();
-			return ActivitySearchResultsContainer.ParseJson(responseText);
-		}
-
+		    return JsonConvert.DeserializeObject<List<Activity>>(responseText);
+        }
 
 		public List<Activity> FindAllActivities(out IList<string> errors)
 		{
-			return FindAllActivities(new ActivitySearchFilters(), out errors);
-		}
-
-		public List<Activity> FindAllActivities(ActivitySearchFilters filters, out IList<string> errors)
-		{
             errors = new List<string>();
 			var activities = new List<Activity>();
-			ActivitySearchResultsContainer results = null;
+		    int pageSize = 100;
+		    int page = 0;
+		    bool hasError = false;
+            IList<Activity> pageResults = new List<Activity>();
 			do
 			{
-			    //Thread.Sleep(TimeSpan.FromMilliseconds(250));
-                filters.Page++;
-				Debug.WriteLine("Searching page {0}", filters.Page);
+
                 try
                 {
-                    results = FindActivities(filters);
-                    activities.AddRange(results.Results.Activities.Select(a => a.Activity));
+                    pageResults = FindActivities(page * pageSize, pageSize);
+                    activities.AddRange(pageResults);
+                    page++;
                 }
                 catch (Exception ex)
                 {
-                    results.Results.CurrentPage++;
-                    errors.Add($"Page:{filters.Page}, PageSize:{filters.ActivitiesPerPage}");
+                    hasError = true;
                 }
-				Debug.WriteLine("Found page {0} or {1}", results.Results.CurrentPage, results.Results.TotalPages);
-			} while (results.Results.CurrentPage < results.Results.TotalPages && results.Results.CurrentPage < filters.MaxPages);
+                
+			} while (!hasError && pageResults.Any());
 
 			return activities;
 		}
 
-		private static string BuildSearchUrl(ActivitySearchFilters filters)
+		private static string BuildSearchUrl(int start, int limit)
 		{
-			// Example URL
-			// http://connect.garmin.com/proxy/activity-search-service-1.2/json/activities?currentPage=1&sortOrder=DESC&limit=100
-			// http://connect.garmin.com/proxy/activity-search-service-1.2/json/activities?currentPage=1&sortOrder=DESC&limit=100&beginTimestamp%3E=2012-11-24T03:00:00
-
-			const string serviceUrl = "http://connect.garmin.com/proxy/activity-search-service-1.2/json/activities";
-
-			var queryString = filters.ToQueryString();
-			return String.Format("{0}?{1}", serviceUrl, queryString);
+			const string serviceUrl = "https://connect.garmin.com/modern/proxy/activitylist-service/activities/search/activities";
+			return $"{serviceUrl}?start={start}&limit={limit}";
 		}
 
 	}

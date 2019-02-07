@@ -5,9 +5,7 @@ namespace GarminConnectClient
 {
     public interface IActivitySearchService
     {
-        ActivitySearchResultsContainer FindActivities();
-        ActivitySearchResultsContainer FindActivities(ActivitySearchFilters filters);
+        List<Activity> FindActivities(int start, int limit);
         List<Activity> FindAllActivities(out IList<string> errors);
-        List<Activity> FindAllActivities(ActivitySearchFilters filters, out IList<string> errors);
     }
 }

@@ -28,8 +28,8 @@ namespace GarminConnectClient
 		            return String.Format("https://connect.garmin.com/modern/proxy/download-service/export/{0}/activity/{1}",
 		                fileType.ToString().ToLower(), activityId);
 		        case ExportFileType.Original:
-                    return String.Format("https://connect.garmin.com/modern/proxy/download-service/files/activity/{0}",activityId);
-		        default:
+                    return String.Format("https://connect.garmin.com/modern/proxy/download-service/files/activity/{0}",activityId); // https://connect.garmin.com/modern/proxy/download-service/files/activity/3363902914
+                default:
 		            throw new ArgumentOutOfRangeException(nameof(fileType), fileType, null);
 		    }
 		}
