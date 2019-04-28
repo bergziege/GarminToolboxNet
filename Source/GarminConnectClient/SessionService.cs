@@ -18,8 +18,8 @@ namespace GarminConnectClient
 			{
 				Session = new Session();
 				var signInResponse = PostLogInRequest(userName, password);
-				var ticketUrl = GetServiceTicketUrl(signInResponse);
-				return ProcessTicket(ticketUrl);
+                var ticketUrl = GetServiceTicketUrl(signInResponse);
+                return ProcessTicket(ticketUrl);
 			}
 			catch (Exception ex)
 			{
@@ -32,6 +32,7 @@ namespace GarminConnectClient
 		private HttpWebResponse PostLogInRequest(string userName, string password)
 		{
 			var request = HttpUtils.CreateRequest(GetLogInUrl(), Session.Cookies);
+            request.Headers.Add("origin", "https://sso.garmin.com");
 			request.WriteFormData(BuildLogInFormData(userName, password));
 			return (HttpWebResponse)request.GetResponse();
 		}
@@ -41,7 +42,7 @@ namespace GarminConnectClient
 			var qs = HttpUtils.CreateQueryString();
 			qs.Add("service", "https://connect.garmin.com/modern");
 			qs.Add("clientId", ClientId);
-			return "https://sso.garmin.com/sso/login?" + qs;
+			return "https://sso.garmin.com/sso/signin?" + qs;
 		}
 
 		private static NameValueCollection BuildLogInFormData(string userName, string password)

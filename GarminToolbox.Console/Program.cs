@@ -49,6 +49,13 @@ namespace GarminToolbox.Console
             unity.RegisterType<GarminConnectClient.IActivityService, GarminConnectClient.ActivityService>();
 
             ISessionService sessionService = unity.Resolve<ISessionService>();
+            try
+            {
+                sessionService.SignOut();
+            }
+            catch (Exception ex)
+            {
+            }
             sessionService.SignIn(opts.UserName, opts.Password);
             IActivityService activityService = unity.Resolve<IActivityService>();
             activityService.SyncLatestMetadata();

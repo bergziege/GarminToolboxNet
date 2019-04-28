@@ -29,7 +29,7 @@ namespace GarminToolbox.Core.Service.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindActivities(0,800);
+            List<Activity> activities = _activitySearchService.FindActivities(0,100);
 
             foreach (Activity activity in activities)
             {
