@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
 using GarminConnectClient;
 using GarminConnectClient.Data;
 using GarminToolbox.Core.Domain;
@@ -16,20 +14,18 @@ namespace GarminToolbox.Core.Service.Impl
     {
         private readonly IActivityMetadataDao _activityMetadataDao;
         private readonly IActivitySearchService _activitySearchService;
-        private readonly ISessionService _sessionService;
         private readonly GarminConnectClient.IActivityService _activityService;
 
-        public ActivityService(IActivityMetadataDao activityMetadataDao, IActivitySearchService activitySearchService, ISessionService sessionService, GarminConnectClient.IActivityService activityService)
+        public ActivityService(IActivityMetadataDao activityMetadataDao, IActivitySearchService activitySearchService, GarminConnectClient.IActivityService activityService)
         {
             _activityMetadataDao = activityMetadataDao;
             _activitySearchService = activitySearchService;
-            _sessionService = sessionService;
             _activityService = activityService;
         }
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindActivities(0,100);
+            List<Activity> activities = _activitySearchService.FindActivities(0,200);
 
             foreach (Activity activity in activities)
             {

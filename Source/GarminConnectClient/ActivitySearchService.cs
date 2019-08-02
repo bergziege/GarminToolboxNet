@@ -3,9 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using System.Net;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Web.UI;
 using GarminConnectClient.Data;
 using Newtonsoft.Json;
 
@@ -29,33 +26,6 @@ namespace GarminConnectClient
 			string responseText = response.GetResponseAsString();
 		    return JsonConvert.DeserializeObject<List<Activity>>(responseText);
         }
-
-		public List<Activity> FindAllActivities(out IList<string> errors)
-		{
-            errors = new List<string>();
-			var activities = new List<Activity>();
-		    int pageSize = 100;
-		    int page = 0;
-		    bool hasError = false;
-            IList<Activity> pageResults = new List<Activity>();
-			do
-			{
-
-                try
-                {
-                    pageResults = FindActivities(page * pageSize, pageSize);
-                    activities.AddRange(pageResults);
-                    page++;
-                }
-                catch (Exception ex)
-                {
-                    hasError = true;
-                }
-                
-			} while (!hasError && pageResults.Any());
-
-			return activities;
-		}
 
 		private static string BuildSearchUrl(int start, int limit)
 		{
