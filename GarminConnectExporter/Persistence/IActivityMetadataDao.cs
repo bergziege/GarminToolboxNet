@@ -13,5 +13,6 @@ namespace GarminConnectExporter.Persistence
         void Update(ActivityMetadata activityMetadata);
         IList<ActivityMetadata> FindAllWithoutGpx();
         IList<ActivityMetadata> FindAllWithoutGpxAndNotFailed();
+        IList<ActivityMetadata> FindAllWithinLastDays(int numberOfLastDays);
     }
 }

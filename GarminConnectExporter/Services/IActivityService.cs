@@ -1,4 +1,5 @@
-﻿using GarminConnectExporter.Domain;
+﻿using System.Collections.Generic;
+using GarminConnectExporter.Domain;
 
 namespace GarminConnectExporter.Services
 {
@@ -8,5 +9,6 @@ namespace GarminConnectExporter.Services
         void SyncFiles();
         void CleanFiles();
         void Export(string activityId, string fileName, ExportFileType fileType);
+        IList<ActivityMetadata> GetActivitiesFromLastDays(int numberOfLastDays);
     }
 }

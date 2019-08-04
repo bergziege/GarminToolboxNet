@@ -26,7 +26,7 @@ namespace GarminConnectExporter.Services.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindActivities(0,200);
+            List<Activity> activities = _activitySearchService.FindActivities(0,50);
 
             foreach (Activity activity in activities)
             {
@@ -132,6 +132,11 @@ namespace GarminConnectExporter.Services.Impl
             var request = HttpUtils.CreateRequest(url, _sessionService.Session.Cookies);
             var response = (HttpWebResponse)request.GetResponse();
             response.SaveResponseToFile(fileName);
+        }
+
+        public IList<ActivityMetadata> GetActivitiesFromLastDays(int numberOfLastDays)
+        {
+            return _activityMetadataDao.FindAllWithinLastDays(numberOfLastDays);
         }
 
         private static string BuildExportUrl(ExportFileType fileType, string activityId)
