@@ -17,6 +17,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\ActivityArchive\ActivityArchive.csproj" />
+    <ProjectReference Include="..\Mailer\Mailer.csproj" />
+    <ProjectReference Include="..\ReportGenerator\ReportGenerator.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Update="App.config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

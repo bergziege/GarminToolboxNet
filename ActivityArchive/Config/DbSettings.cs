@@ -1,6 +1,4 @@
-﻿using Org.BouncyCastle.Asn1.Mozilla;
-
-namespace GarminConnectExporter.Config
+﻿namespace ActivityArchive.Config
 {
     public class DbSettings
     {

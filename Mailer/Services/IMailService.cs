@@ -1,7 +1,7 @@
 ﻿using System.Threading.Tasks;
-using GarminConnectExporter.Config;
+using Mailer.Config;
 
-namespace GarminConnectExporter.Services
+namespace Mailer.Services
 {
     public interface IMailService
     {

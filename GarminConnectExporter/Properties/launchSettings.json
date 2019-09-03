@@ -2,7 +2,7 @@
   "profiles": {
     "GarminConnectExporter": {
       "commandName": "Project",
-      "commandLineArgs": "-u debgz_bergziege -p U1A7z0GOUC4mSKxIQvgz                     // \"Server=192.168.2.101;Database=garmin_toolbox_net;Uid=garmintoolboxnet;Pwd=ydumuquOjsa10KUNOw2R;\""
+      "commandLineArgs": "App.config.json"
     }
   }
 }

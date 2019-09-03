@@ -2,15 +2,16 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using GarminConnectExporter.Domain;
+using ActivityArchive.Domain;
+using ActivityArchive.Services;
 
-namespace GarminConnectExporter.Services.Impl
+namespace ReportGenerator.Services.Impl
 {
     public class ReportService : IReportService
     {
-        private readonly IActivityService _activityService;
+        private readonly IActivityArchiveService _activityService;
 
-        public ReportService(IActivityService activityService)
+        public ReportService(IActivityArchiveService activityService)
         {
             _activityService = activityService;
         }

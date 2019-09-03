@@ -1,4 +1,4 @@
-﻿namespace GarminConnectExporter.Services
+﻿namespace ReportGenerator.Services
 {
     public interface IReportService
     {

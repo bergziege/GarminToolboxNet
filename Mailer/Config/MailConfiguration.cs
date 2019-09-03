@@ -1,4 +1,4 @@
-﻿namespace GarminConnectExporter.Config
+﻿namespace Mailer.Config
 {
     public class MailConfiguration
     {

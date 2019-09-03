@@ -1,12 +1,12 @@
 ﻿using System.Data;
+using ActivityArchive.Config;
+using ActivityArchive.Persistence.Mappings;
 using Dapper.FluentMap;
 using Dapper.FluentMap.Dommel;
-using GarminConnectExporter.Config;
-using GarminConnectExporter.Persistence.Mapping;
 using MySql.Data.MySqlClient;
 using Unity;
 
-namespace GarminConnectExporter.Infrastructure
+namespace ActivityArchive.Infrastructure
 {
     public class DBConfiguration
     {

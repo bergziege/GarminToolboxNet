@@ -1,10 +1,9 @@
-﻿using System;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
 using System.Threading.Tasks;
-using GarminConnectExporter.Config;
+using Mailer.Config;
 
-namespace GarminConnectExporter.Services.Impl
+namespace Mailer.Services.Impl
 {
     public class MailService : IMailService
     {

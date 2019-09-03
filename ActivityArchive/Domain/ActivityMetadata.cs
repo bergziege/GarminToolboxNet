@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace GarminConnectExporter.Domain
+namespace ActivityArchive.Domain
 {
     public class ActivityMetadata
     {
