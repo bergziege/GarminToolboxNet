@@ -1,7 +1,7 @@
-﻿using Dapper.FluentMap.Dommel.Mapping;
-using GarminConnectExporter.Domain;
+﻿using ActivityArchive.Domain;
+using Dapper.FluentMap.Dommel.Mapping;
 
-namespace GarminConnectExporter.Persistence.Mapping
+namespace ActivityArchive.Persistence.Mappings
 {
     public class ActivityMetadataMap : DommelEntityMap<ActivityMetadata>
     {

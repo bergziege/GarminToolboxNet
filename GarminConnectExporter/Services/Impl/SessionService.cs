@@ -3,6 +3,7 @@ using System.Collections.Specialized;
 using System.Diagnostics;
 using System.Net;
 using System.Text.RegularExpressions;
+using GarminConnectExporter.Config;
 using GarminConnectExporter.Domain;
 using GarminConnectExporter.Infrastructure;
 
@@ -14,12 +15,12 @@ namespace GarminConnectExporter.Services.Impl
 
 		public Session Session { get; private set; }
 
-		public bool SignIn(string userName, string password)
+		public bool SignIn(GarminConfiguration garminSettings)
 		{
 			try
 			{
 				Session = new Session();
-				var signInResponse = PostLogInRequest(userName, password);
+				var signInResponse = PostLogInRequest(garminSettings.Username, garminSettings.Password);
                 var ticketUrl = GetServiceTicketUrl(signInResponse);
                 return ProcessTicket(ticketUrl);
 			}

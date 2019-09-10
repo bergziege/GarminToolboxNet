@@ -1,10 +1,11 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using ActivityArchive.Domain;
 using Dommel;
-using GarminConnectExporter.Domain;
 
-namespace GarminConnectExporter.Persistence.Impl
+namespace ActivityArchive.Persistence.Impl
 {
     public class ActivityMetadataDao : IActivityMetadataDao
     {
@@ -49,6 +50,18 @@ namespace GarminConnectExporter.Persistence.Impl
         public IList<ActivityMetadata> FindAllWithoutGpxAndNotFailed()
         {
             return _connection.Select<ActivityMetadata>(x => !x.HasGpx && !x.GpxDownloadFailed).ToList();
+        }
+
+        public IList<ActivityMetadata> FindAllWithinLastDays(int numberOfLastDays)
+        {
+            DateTime searchStartDate = DateTime.Today.AddDays(numberOfLastDays * -1);
+            return _connection.Select<ActivityMetadata>(x =>
+                x.Start != null && x.Start >= searchStartDate).ToList();
+        }
+
+        public IList<ActivityMetadata> FindAllWithGpx()
+        {
+            return _connection.Select<ActivityMetadata>(x => x.HasGpx).ToList();
         }
     }
 }

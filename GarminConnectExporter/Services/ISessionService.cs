@@ -1,11 +1,12 @@
-﻿using GarminConnectExporter.Domain;
+﻿using GarminConnectExporter.Config;
+using GarminConnectExporter.Domain;
 
 namespace GarminConnectExporter.Services
 {
     public interface ISessionService
     {
         Session Session { get; }
-        bool SignIn(string userName, string password);
+        bool SignIn(GarminConfiguration garminSettings);
         void SignOut();
     }
 }

@@ -114,3 +114,4 @@ Output/
 Packages/
 Packages/!Repositories.config
 .vs/
+GarminConnectExporter/App.config.json

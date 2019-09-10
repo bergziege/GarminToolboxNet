@@ -4,9 +4,12 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Net;
+using ActivityArchive.Config;
+using ActivityArchive.Domain;
+using ActivityArchive.Persistence;
+using GarminConnectExporter.Config;
 using GarminConnectExporter.Domain;
 using GarminConnectExporter.Infrastructure;
-using GarminConnectExporter.Persistence;
 using Activity = GarminConnectExporter.Domain.Activity;
 
 namespace GarminConnectExporter.Services.Impl
@@ -26,7 +29,7 @@ namespace GarminConnectExporter.Services.Impl
 
         public void SyncLatestMetadata()
         {
-            List<Activity> activities = _activitySearchService.FindActivities(0,200);
+            List<Activity> activities = _activitySearchService.FindActivities(0,50);
 
             foreach (Activity activity in activities)
             {
@@ -54,16 +57,15 @@ namespace GarminConnectExporter.Services.Impl
             }
         }
 
-        public void SyncOriginalFiles()
+        public void SyncOriginalFiles(FileSystemConfiguration fileSystemConfiguration)
         {
             IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutOriginalFile();
             
-            string downloadDirectory = @"P:\GarminToolboxNet\";
             foreach (ActivityMetadata metadata in activitiesWithoutOriginalFile)
             {
                 try
                 {
-                    Export(metadata.ActivityId, downloadDirectory + metadata.ActivityId + ".zip",
+                    Export(metadata.ActivityId, fileSystemConfiguration.OriginalFileDownloadDirectory + metadata.ActivityId + ".zip",
                         ExportFileType.Original);
                     metadata.UpdateHasOriginal();
                     _activityMetadataDao.Update(metadata);
@@ -75,16 +77,15 @@ namespace GarminConnectExporter.Services.Impl
             }
         }
 
-        public void SyncGpx()
+        public void SyncGpx(FileSystemConfiguration fileSystemConfiguration)
         {
             IList<ActivityMetadata> activitiesWithoutOriginalFile = _activityMetadataDao.FindAllWithoutGpxAndNotFailed();
             
-            string downloadDirectory = @"P:\GarminToolboxNet\";
             foreach (ActivityMetadata metadata in activitiesWithoutOriginalFile)
             {
                 try
                 {
-                    Export(metadata.ActivityId, downloadDirectory + metadata.ActivityId + ".gpx", ExportFileType.Gpx);
+                    Export(metadata.ActivityId, fileSystemConfiguration.GpxFileDownloadDirectory + metadata.ActivityId + ".gpx", ExportFileType.Gpx);
                     metadata.UpdateHasGpx();
                     _activityMetadataDao.Update(metadata);
                 }
@@ -95,19 +96,18 @@ namespace GarminConnectExporter.Services.Impl
             }
         }
 
-        public void SyncFiles()
+        public void SyncFiles(FileSystemConfiguration fileSystemConfiguration)
         {
-            SyncOriginalFiles();
-            SyncGpx();
+            SyncOriginalFiles(fileSystemConfiguration);
+            SyncGpx(fileSystemConfiguration);
         }
 
-        public void CleanFiles()
+        public void CleanGpxFiles(FileSystemConfiguration fileSystemConfiguration)
         {
-            string downloadDirectory = @"P:\GarminToolboxNet\";
             IList<ActivityMetadata> metadatas = _activityMetadataDao.GetAll();
             foreach (ActivityMetadata metadata in metadatas.Where(x=>x.HasGpx))
             {
-                FileInfo file = new FileInfo(downloadDirectory + metadata.ActivityId + ".gpx");
+                FileInfo file = new FileInfo(fileSystemConfiguration.GpxFileDownloadDirectory + metadata.ActivityId + ".gpx");
                 if (!file.Exists)
                 {
                     metadata.UpdateHasGpx(false);

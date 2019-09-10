@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using GarminConnectExporter.Domain;
+using ActivityArchive.Domain;
 
-namespace GarminConnectExporter.Persistence
+namespace ActivityArchive.Persistence
 {
     public interface IActivityMetadataDao
     {
@@ -13,5 +13,7 @@ namespace GarminConnectExporter.Persistence
         void Update(ActivityMetadata activityMetadata);
         IList<ActivityMetadata> FindAllWithoutGpx();
         IList<ActivityMetadata> FindAllWithoutGpxAndNotFailed();
+        IList<ActivityMetadata> FindAllWithinLastDays(int numberOfLastDays);
+        IList<ActivityMetadata> FindAllWithGpx();
     }
 }

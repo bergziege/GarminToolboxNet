@@ -1,15 +1,16 @@
 ﻿using System.Data;
+using ActivityArchive.Config;
+using ActivityArchive.Persistence.Mappings;
 using Dapper.FluentMap;
 using Dapper.FluentMap.Dommel;
-using GarminConnectExporter.Persistence.Mapping;
 using MySql.Data.MySqlClient;
 using Unity;
 
-namespace GarminConnectExporter.Infrastructure
+namespace ActivityArchive.Infrastructure
 {
     public class DBConfiguration
     {
-        public DBConfiguration(IUnityContainer unity)
+        public DBConfiguration(IUnityContainer unity, DbSettings dbSettings)
         {
             FluentMapper.Initialize(config =>
             {
@@ -17,7 +18,7 @@ namespace GarminConnectExporter.Infrastructure
                 config.ForDommel();
             });
 
-            IDbConnection connection = new MySqlConnection("Server=192.168.2.101;Database=garmin_toolbox_net;Uid=garmintoolboxnet;Pwd=ydumuquOjsa10KUNOw2R;");
+            IDbConnection connection = new MySqlConnection($"Server={dbSettings.Server};Database={dbSettings.Database};Uid={dbSettings.Username};Pwd={dbSettings.Password};");
             unity.RegisterInstance(connection);
         }
     }
