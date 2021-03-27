@@ -29,7 +29,7 @@ namespace GarminConnectExporter.Services.Impl
 
 		private static string BuildSearchUrl(int start, int limit)
 		{
-			const string serviceUrl = "https://connect.garmin.com/modern/proxy/activitylist-service/activities/search/activities";
+			const string serviceUrl = "https://connect.garmin.com/proxy/activitylist-service/activities/search/activities";
 			return $"{serviceUrl}?start={start}&limit={limit}";
 		}
 
